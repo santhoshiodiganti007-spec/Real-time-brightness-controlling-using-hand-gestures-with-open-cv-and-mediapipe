@@ -5,9 +5,17 @@ class WebSocketService {
   constructor() {
     this.ws = null;
     this.listeners = new Set();
-    this.reconnectTimer = null;
-    this.url = 'ws://127.0.0.1:8000/ws/brightness';
-    this.isConnected = false;
+    const getWsUrl = () => {
+      if (import.meta.env.VITE_WS_URL) {
+        return import.meta.env.VITE_WS_URL;
+      }
+      if (typeof window !== 'undefined' && (window.location.port === '8000' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        return `${protocol}//${window.location.hostname}:8000/ws/brightness`;
+      }
+      return 'ws://127.0.0.1:8000/ws/brightness';
+    };
+    this.url = getWsUrl();
   }
 
   connect() {

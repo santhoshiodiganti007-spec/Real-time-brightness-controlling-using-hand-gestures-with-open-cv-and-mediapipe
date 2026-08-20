@@ -1,8 +1,13 @@
 import axios from 'axios';
 
 const getBaseUrl = () => {
-  const host = window.location.hostname || '127.0.0.1';
-  return `http://${host}:8000/api`;
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  if (typeof window !== 'undefined' && (window.location.port === '8000' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    return `http://${window.location.hostname}:8000/api`;
+  }
+  return 'http://127.0.0.1:8000/api';
 };
 
 const api = axios.create({
@@ -10,6 +15,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 5000,
 });
 
 export const getHealth = async () => (await api.get('/health')).data;
