@@ -3,7 +3,8 @@ import { Camera, RefreshCw, Eye, EyeOff, Video, Sparkles } from 'lucide-react';
 
 export default function CameraView({ telemetry }) {
   const [streamError, setStreamError] = React.useState(false);
-  const streamUrl = 'http://127.0.0.1:8000/api/camera/stream';
+  const host = typeof window !== 'undefined' ? window.location.hostname || '127.0.0.1' : '127.0.0.1';
+  const streamUrl = `http://${host}:8000/api/camera/stream`;
 
   return (
     <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl relative overflow-hidden group">
