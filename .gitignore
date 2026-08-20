@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.env
+
+# SQLite
+*.db
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# PyInstaller / Executable output
+build/
+dist/
+*.spec
+
+# Node / React
+node_modules/
+frontend/dist/
+frontend/node_modules/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

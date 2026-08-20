@@ -1,0 +1,26 @@
+system:
+  app_name: "Touchless Brightness Control"
+  version: "1.0.0"
+  demo_mode: false
+
+camera:
+  index: 0
+  width: 640
+  height: 480
+  target_fps: 30
+
+gesture:
+  min_distance: 0.03
+  max_distance: 0.25
+  smoothing_alpha: 0.2
+  detection_confidence: 0.7
+  tracking_confidence: 0.7
+  max_hands: 2
+
+brightness:
+  min_percent: 10
+  max_percent: 100
+  update_threshold: 2.0
+
+database:
+  url: "sqlite:///./touchless_brightness.db"

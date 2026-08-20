@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=production
+      - DEMO_MODE=true
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+  # Cloud / Web Dashboard mode note:
+  # Containerized/cloud environments run in DEMO MODE simulating physical monitor output,
+  # because cloud servers cannot directly modify the user's local display monitor hardware.
