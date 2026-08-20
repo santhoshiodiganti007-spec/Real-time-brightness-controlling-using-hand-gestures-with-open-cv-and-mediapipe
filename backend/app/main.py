@@ -2,8 +2,13 @@
 FastAPI Main Application Entry Point.
 Initializes database, CORS, routes, system diagnostics, and WebSocket broadcaster.
 """
+import os
 import sys
 import asyncio
+
+# Ensure backend root directory is in sys.path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
