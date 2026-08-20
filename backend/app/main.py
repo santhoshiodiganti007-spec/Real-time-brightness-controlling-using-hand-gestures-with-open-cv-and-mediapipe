@@ -81,6 +81,21 @@ app.include_router(routes_settings.router)
 app.include_router(routes_statistics.router)
 app.include_router(routes_camera.router)
 
+# Mount compiled production React frontend if available
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+frontend_dist = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "frontend", "dist")
+if os.path.exists(frontend_dist):
+    assets_dir = os.path.join(frontend_dist, "assets")
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    @app.get("/")
+    def serve_frontend():
+        return FileResponse(os.path.join(frontend_dist, "index.html"))
+
+
 # Real-time WebSocket Endpoint
 @app.websocket("/ws/brightness")
 async def websocket_brightness_endpoint(websocket: WebSocket):
